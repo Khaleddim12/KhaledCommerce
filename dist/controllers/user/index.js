@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.resetPassword = exports.login = exports.register = exports.forgotPassword = exports.editUser = exports.getProfile = exports.getBySlug = exports.deleteUserBySlug = exports.getUsers = void 0;
+const userController_1 = require("./userController");
+Object.defineProperty(exports, "getUsers", { enumerable: true, get: function () { return userController_1.getUsers; } });
+Object.defineProperty(exports, "deleteUserBySlug", { enumerable: true, get: function () { return userController_1.deleteUserBySlug; } });
+Object.defineProperty(exports, "getBySlug", { enumerable: true, get: function () { return userController_1.getBySlug; } });
+Object.defineProperty(exports, "getProfile", { enumerable: true, get: function () { return userController_1.getProfile; } });
+Object.defineProperty(exports, "editUser", { enumerable: true, get: function () { return userController_1.editUser; } });
+Object.defineProperty(exports, "resetPassword", { enumerable: true, get: function () { return userController_1.resetPassword; } });
+Object.defineProperty(exports, "forgotPassword", { enumerable: true, get: function () { return userController_1.forgotPassword; } });
+const authController_1 = require("./authController");
+Object.defineProperty(exports, "register", { enumerable: true, get: function () { return authController_1.register; } });
+Object.defineProperty(exports, "login", { enumerable: true, get: function () { return authController_1.login; } });

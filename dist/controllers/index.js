@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeCategory = exports.editCategory = exports.getCategoryBySlug = exports.getCategories = exports.createCategory = exports.resetPassword = exports.register = exports.login = exports.forgotPassword = exports.editUser = exports.getProfile = exports.getBySlug = exports.deleteUserBySlug = exports.getUsers = void 0;
+exports.deleteLoggedInUser = exports.deleteProductFromCart = exports.addProductToCart = exports.getCartBySlug = exports.removeCategory = exports.editCategory = exports.getCategoryBySlug = exports.getCategories = exports.createCategory = exports.resetPassword = exports.register = exports.login = exports.forgotPassword = exports.editUser = exports.getProfile = exports.getBySlug = exports.deleteUserBySlug = exports.getUsers = void 0;
 const user_1 = require("./user");
 Object.defineProperty(exports, "getUsers", { enumerable: true, get: function () { return user_1.getUsers; } });
 Object.defineProperty(exports, "deleteUserBySlug", { enumerable: true, get: function () { return user_1.deleteUserBySlug; } });
@@ -11,9 +11,14 @@ Object.defineProperty(exports, "forgotPassword", { enumerable: true, get: functi
 Object.defineProperty(exports, "login", { enumerable: true, get: function () { return user_1.login; } });
 Object.defineProperty(exports, "register", { enumerable: true, get: function () { return user_1.register; } });
 Object.defineProperty(exports, "resetPassword", { enumerable: true, get: function () { return user_1.resetPassword; } });
+Object.defineProperty(exports, "deleteLoggedInUser", { enumerable: true, get: function () { return user_1.deleteLoggedInUser; } });
 const categoryController_1 = require("./categoryController");
 Object.defineProperty(exports, "createCategory", { enumerable: true, get: function () { return categoryController_1.createCategory; } });
 Object.defineProperty(exports, "getCategories", { enumerable: true, get: function () { return categoryController_1.getCategories; } });
 Object.defineProperty(exports, "editCategory", { enumerable: true, get: function () { return categoryController_1.editCategory; } });
 Object.defineProperty(exports, "getCategoryBySlug", { enumerable: true, get: function () { return categoryController_1.getCategoryBySlug; } });
 Object.defineProperty(exports, "removeCategory", { enumerable: true, get: function () { return categoryController_1.removeCategory; } });
+const cartController_1 = require("./cartController");
+Object.defineProperty(exports, "addProductToCart", { enumerable: true, get: function () { return cartController_1.addProductToCart; } });
+Object.defineProperty(exports, "getCartBySlug", { enumerable: true, get: function () { return cartController_1.getCartBySlug; } });
+Object.defineProperty(exports, "deleteProductFromCart", { enumerable: true, get: function () { return cartController_1.deleteProductFromCart; } });

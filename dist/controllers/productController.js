@@ -32,7 +32,7 @@ exports.getProducts = (0, middlewares_1.asyncHandler)((req, res, next) => __awai
 exports.getProductBySlug = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const slug = req.params.slug;
     //check if product exist
-    const product = (0, services_1.getProduct)(slug);
+    const product = yield (0, services_1.getProduct)(slug);
     if (!product)
         return next(new utils_1.ErrorResponse((0, utils_1.errorMessages)("exist", "product"), 404));
     res.status(200).json({
@@ -48,7 +48,11 @@ exports.deleteProduct = (0, middlewares_1.asyncHandler)((req, res, next) => __aw
     const product = yield (0, services_1.getProduct)(slug);
     if (!product)
         return next(new utils_1.ErrorResponse((0, utils_1.errorMessages)("exist", "product"), 404));
-    //delete category
+    //delete product reviews
+    yield models_1.Review.deleteMany({
+        product: product._id
+    });
+    //delete product
     yield (0, services_1.removeProduct)(product._id);
     //status return
     res.status(200).json({

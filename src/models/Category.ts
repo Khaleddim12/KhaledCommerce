@@ -37,12 +37,5 @@ CategorySchema.pre('save', function(next){
     next();
 });
 
-CategorySchema.virtual("products",{
-    ref: "Product",
-    localField: '_id',
-    foreignField: "category",
-    justOne: false
-});
-
 const Category = model<ICategory>("Category",CategorySchema);
 export {Category,CategorySchema};

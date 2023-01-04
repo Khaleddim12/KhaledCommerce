@@ -11,6 +11,10 @@ import { Document ,Types} from "mongoose";
     createdAt?: Date;
     updatedAt?: Date;
     available:Boolean;
+    ratings:number;
+    numOfReviews:number;
+    reviews:any[];
+    
     
 };
 

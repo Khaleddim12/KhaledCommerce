@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productSchema = exports.Product = void 0;
 const mongoose_1 = require("mongoose");
 const slugify_1 = __importDefault(require("slugify"));
+const Review_1 = require("./Review");
 const errorMessages_1 = require("../utils/messages/errorMessages");
 const productSchema = new mongoose_1.Schema({
     name: String,
@@ -28,6 +29,17 @@ const productSchema = new mongoose_1.Schema({
     description: {
         type: String,
     },
+    reviews: [
+        {
+            type: Review_1.ReviewSchema,
+        },
+    ],
+    ratings: {
+        type: Number,
+    },
+    numOfReviews: {
+        type: Number,
+    },
     createdAt: {
         type: Date,
         immutable: true,
@@ -37,7 +49,11 @@ const productSchema = new mongoose_1.Schema({
         type: Date,
         default: () => Date.now(),
     },
-}, { versionKey: false });
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    versionKey: false,
+});
 exports.productSchema = productSchema;
 productSchema.pre('save', function (next) {
     this.updatedAt = new Date();

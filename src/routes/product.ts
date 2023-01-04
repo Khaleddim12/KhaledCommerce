@@ -11,7 +11,7 @@ import {
   deleteProduct,
   editProduct,
   editCount,
-} from "../controllers/productController";
+} from "../controllers/productController";  
 
 //MIDDLEWARES
 import { filter, result, productValidate } from "../middlewares";
@@ -34,5 +34,6 @@ productRouter
   .put(productStorage().any(), productValidate("edit"), result(), editProduct)
   
 productRouter.route("/:slug/editcount").put(productValidate("assign"), result(), editCount);
+
 
 export { productRouter };

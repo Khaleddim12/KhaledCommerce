@@ -8,7 +8,8 @@ import {
   getBySlug,
   getProfile,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  deleteLoggedInUser
 } from "../../controllers";
 
 //middlewares
@@ -16,7 +17,7 @@ import { authValidation, filter, result, userValidator } from "../../middlewares
 
 const userRouter = Router();
 userRouter.route("/").get(filter("User"), getUsers);
-
+userRouter.route("/").delete(deleteLoggedInUser)
 userRouter.route("/profile").get(getProfile);
 
 userRouter.route("/forgotpassword").post(forgotPassword);

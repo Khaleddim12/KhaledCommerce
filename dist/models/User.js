@@ -26,7 +26,30 @@ const UserSchema = new mongoose_2.Schema({
         type: String,
         select: false
     },
-    email: String,
+    address: {
+        street: {
+            type: String,
+            required: true,
+        },
+        city: {
+            type: String,
+            required: true,
+        },
+        state: {
+            type: String,
+        },
+        country: {
+            type: String,
+            required: true,
+        },
+    },
+    phoneNo: {
+        type: Number,
+        required: true,
+    },
+    email: {
+        type: String,
+    },
     resetPasswordToken: String,
     resetPasswordExpire: String,
     createdAt: {
@@ -35,8 +58,18 @@ const UserSchema = new mongoose_2.Schema({
         default: () => new Date(),
     },
     updatedAt: Date,
-}, { versionKey: false });
+}, {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    versionKey: false,
+});
 exports.UserSchema = UserSchema;
+UserSchema.virtual('reviews', {
+    ref: "Review",
+    localField: '_id',
+    foreignField: "user",
+    justOne: false
+});
 UserSchema.path('username').validate(function (value) {
     return __awaiter(this, void 0, void 0, function* () {
         let count = yield mongoose_1.default.models["User"].findOne({ "username": value }).countDocuments();

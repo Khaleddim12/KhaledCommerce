@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
+import mongoose, { Schema, model } from "mongoose";
 import slugify from "slugify";
 import { IProduct } from "../interfaces/productInterface";
-
+import {ReviewSchema} from './Review'
 import { errorMessages } from "../utils/messages/errorMessages";
 
 
@@ -9,6 +9,7 @@ const productSchema = new Schema<IProduct>(
   {
     name: String,
     slug: String,
+    
     category: {
       type: Schema.Types.ObjectId,
       ref: "Category",
@@ -27,7 +28,17 @@ const productSchema = new Schema<IProduct>(
     description: { 
       type: String,
     },
-    
+    reviews: [
+      {
+        type:ReviewSchema,
+      },
+    ],
+    ratings:{
+      type: Number,
+    },
+    numOfReviews:{
+      type: Number,
+    },
     createdAt: {
       type: Date,
       immutable: true,
@@ -38,8 +49,14 @@ const productSchema = new Schema<IProduct>(
       default: () => Date.now(),
     },
   },
-  { versionKey: false },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+    versionKey: false,
+},
 );
+
+
 
 productSchema.pre('save', function(next){
   this.updatedAt = new Date();

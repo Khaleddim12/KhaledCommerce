@@ -11,4 +11,6 @@ exports.router = router;
 router.use("/auth", routes_1.authRouter);
 router.use("/user", middlewares_1.authenticate, routes_1.userRouter);
 router.use("/category", middlewares_1.authenticate, routes_1.categoryRouter);
+router.use("/cart", middlewares_1.authenticate, routes_1.cartRouter);
 router.use("/product", middlewares_1.authenticate, routes_1.productRouter);
+router.use("/review", middlewares_1.authenticate, routes_1.reivewRouter);

@@ -39,11 +39,5 @@ CategorySchema.pre('save', function (next) {
     this.slug = (0, slugify_1.default)(this.name, { lower: true });
     next();
 });
-CategorySchema.virtual("products", {
-    ref: "Product",
-    localField: '_id',
-    foreignField: "category",
-    justOne: false
-});
 const Category = (0, mongoose_1.model)("Category", CategorySchema);
 exports.Category = Category;

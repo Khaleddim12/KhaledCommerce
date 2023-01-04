@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetPassword = exports.forgotPassword = exports.deleteUserBySlug = exports.getProfile = exports.editUser = exports.getBySlug = exports.getUsers = void 0;
+exports.resetPassword = exports.forgotPassword = exports.deleteLoggedInUser = exports.deleteUserBySlug = exports.getProfile = exports.editUser = exports.getBySlug = exports.getUsers = void 0;
 const crypto_1 = __importDefault(require("crypto"));
 // Middleware
 const middlewares_1 = require("../../middlewares");
@@ -62,7 +62,7 @@ exports.editUser = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter
         password: password,
         email: email,
         updatedAt: Date.now(),
-        slug: nameSlug
+        slug: nameSlug,
     }, { new: true, upsert: false, projection: {} });
     if (password) {
         updatedUser.password = password;
@@ -72,7 +72,7 @@ exports.editUser = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter
         success: true,
         data: updatedUser,
         message: "User edited successfully",
-        newpassword: password
+        newpassword: password,
     });
 }));
 //* @desc Get profile of logged in User
@@ -87,7 +87,7 @@ exports.getProfile = (0, middlewares_1.asyncHandler)((req, res, next) => __await
         data: user,
     });
 }));
-//* @desc Delete User
+//* @desc Delete User By Slug
 //* @route DELETE /api/user/:slug
 exports.deleteUserBySlug = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const slug = req.params.slug;
@@ -95,12 +95,45 @@ exports.deleteUserBySlug = (0, middlewares_1.asyncHandler)((req, res, next) => _
     let user = yield (0, user_service_1.getUserBySlug)(slug);
     if (!user)
         return next(new utils_1.ErrorResponse((0, utils_1.errorMessages)("exist", "user"), 404));
+    //delete all user reviews
+    yield models_1.Review.deleteMany({ user: user._id });
+    //delete reviews from products
+    yield models_1.Product.updateMany({
+        $pull: { reviews: { user: user._id } },
+    });
+    //delete user cart
+    yield models_1.Cart.deleteOne({ user: user._id });
     // Delete user account
     yield (0, user_service_1.deleteUser)(user._id);
     //status return
     res.status(200).json({
         success: true,
-        message: "user deleted successfuly"
+        message: "user deleted successfuly",
+    });
+}));
+//* @desc Delete User By Slug
+//* @route DELETE /api/user/
+exports.deleteLoggedInUser = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const slug = req.params.slug;
+    // Get user by id
+    let user = yield models_1.User.findOne({
+        _id: req.user._id
+    });
+    if (!user)
+        return next(new utils_1.ErrorResponse((0, utils_1.errorMessages)("auth", "user"), 404));
+    //delete all user reviews
+    yield models_1.Review.deleteMany({ user: user._id });
+    yield models_1.Product.updateMany({
+        $pull: { reviews: { user: user._id } },
+    });
+    //delete user cart
+    yield models_1.Cart.deleteOne({ user: user._id });
+    // Delete user account
+    yield (0, user_service_1.deleteUser)(user._id);
+    //status return
+    res.status(200).json({
+        success: true,
+        message: "user deleted successfuly",
     });
 }));
 // @desc    Forget Password
@@ -108,10 +141,11 @@ exports.deleteUserBySlug = (0, middlewares_1.asyncHandler)((req, res, next) => _
 exports.forgotPassword = (0, middlewares_1.asyncHandler)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     //get user by mail
     const user = yield models_1.User.findOne({
-        email: req.user.email
+        "email": req.user.email,
     });
     if (!user)
         return next(new utils_1.ErrorResponse((0, utils_1.errorMessages)("exist", "email"), 404));
+    console.log(user);
     // get resetToken
     const resetToken = user.getResetPasswordToken();
     // Save hashed token

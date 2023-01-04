@@ -8,6 +8,7 @@ import {
   login,
   register,
   resetPassword,
+  deleteLoggedInUser
 } from "./user";
 
 import {
@@ -17,6 +18,13 @@ import {
   getCategoryBySlug,
   removeCategory,
 } from "./categoryController";
+
+import {
+  addProductToCart,
+  getCartBySlug,
+  deleteProductFromCart
+} from './cartController'
+
 export {
   getUsers,
   deleteUserBySlug,
@@ -31,5 +39,9 @@ export {
   getCategories,
   getCategoryBySlug,
   editCategory,
-  removeCategory
+  removeCategory,
+  getCartBySlug,
+  addProductToCart,
+  deleteProductFromCart,
+  deleteLoggedInUser
 };

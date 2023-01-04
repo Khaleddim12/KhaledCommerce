@@ -5,6 +5,8 @@ interface IUser extends Document{
     slug: string;
     password: string;
     email: string;
+    address: {};
+    phoneNo:number;
     resetPasswordToken?: string;
     resetPasswordExpire?: string;
     createdAt?: Date;

@@ -12,7 +12,11 @@ import {
   getCategory,
   getCategoryByCondititon,
 } from "./category.services";
-
+import{
+  createCart,
+  deleteCart,
+  getCart
+} from "./cart.services"
 export {
   createUser,
   findUserByCreds,
@@ -27,4 +31,7 @@ export {
   getCategory,
   getCategoryByCondititon,
   getUserBySlug,
+  createCart,
+  deleteCart,
+  getCart
 };

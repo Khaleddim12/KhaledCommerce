@@ -14,7 +14,32 @@ const UserSchema = new  Schema<IUser>({
       type: String,
       select: false 
     },
-    email: String,
+    address:{
+      street: {
+        type: String,
+        required: true,
+      },
+      city: {
+        type: String,
+        required: true,
+      },
+  
+      state: {
+        type: String,
+      },
+      country: {
+        type: String,
+        required: true,
+      },
+    },
+    phoneNo: {
+      type: Number,
+      required: true,
+    },
+    email:{
+      type: String,
+    },
+    
     resetPasswordToken: String,
     resetPasswordExpire: String,
     createdAt: {
@@ -23,7 +48,18 @@ const UserSchema = new  Schema<IUser>({
       default: () => new Date(),
     },
     updatedAt: Date,
-},{ versionKey: false});
+},{
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true },
+  versionKey: false,
+});
+
+UserSchema.virtual('reviews',{
+  ref:"Review",
+  localField: '_id',
+  foreignField: "user",
+  justOne: false
+});
 
 UserSchema.path('username').validate(async function(value:string) {
   let count:number = await mongoose.models["User"].findOne({ "username": value }).countDocuments();

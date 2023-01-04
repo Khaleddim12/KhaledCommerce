@@ -2,16 +2,16 @@ import { Request, Response, NextFunction } from "express";
 import slugify from "slugify";
 
 //INTERFACES
-import { IProduct, IFilterResponse } from "../interfaces";
+import { IProduct, IFilterResponse, IAuthRequest } from "../interfaces";
 
 //UTILS
-import { ErrorResponse, errorMessages } from "../utils";
+import { ErrorResponse, errorMessages, arrify } from "../utils";
 
 //MIDDLEWARES
 import { asyncHandler, filter } from "../middlewares";
 //SERVICES
 import { addProduct, removeProduct, getProduct } from "../services/";
-import { Category, Product } from "../models";
+import { Category, Product, Review } from "../models";
 
 // @desc  Get all Products
 // @route GET /api/product/
@@ -29,7 +29,8 @@ export const getProductBySlug = asyncHandler(
     const slug = req.params.slug;
 
     //check if product exist
-    const product = getProduct(slug);
+    const product = await getProduct(slug);
+
     if (!product)
       return next(new ErrorResponse(errorMessages("exist", "product"), 404));
 
@@ -52,7 +53,12 @@ export const deleteProduct = asyncHandler(
     if (!product)
       return next(new ErrorResponse(errorMessages("exist", "product"), 404));
 
-    //delete category
+    
+    //delete product reviews
+    await Review.deleteMany({
+      product:product._id
+    })
+    //delete product
     await removeProduct(product._id);
 
     //status return

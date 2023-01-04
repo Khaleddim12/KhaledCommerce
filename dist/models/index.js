@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Category = exports.User = exports.Product = exports.Cart = void 0;
+exports.Review = exports.Category = exports.User = exports.Product = exports.Cart = void 0;
 const Category_1 = require("./Category");
 Object.defineProperty(exports, "Category", { enumerable: true, get: function () { return Category_1.Category; } });
 const Cart_1 = require("./Cart");
@@ -9,3 +9,5 @@ const Product_1 = require("./Product");
 Object.defineProperty(exports, "Product", { enumerable: true, get: function () { return Product_1.Product; } });
 const User_1 = require("./User");
 Object.defineProperty(exports, "User", { enumerable: true, get: function () { return User_1.User; } });
+const Review_1 = require("./Review");
+Object.defineProperty(exports, "Review", { enumerable: true, get: function () { return Review_1.Review; } });

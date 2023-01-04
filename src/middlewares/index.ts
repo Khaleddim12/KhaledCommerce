@@ -8,7 +8,8 @@ import {
   userValidator,
   authValidation,
   categoryValidation,
-  productValidate
+  productValidate,
+  reviewValidate
 } from "./modelValidation";
 import { result } from "./validationResults";
 
@@ -22,5 +23,6 @@ export {
   result,
   authValidation,
   categoryValidation,
-  productValidate
+  productValidate,
+  reviewValidate
 };

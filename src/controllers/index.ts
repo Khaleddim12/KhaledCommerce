@@ -21,7 +21,7 @@ import {
 
 import {
   addProductToCart,
-  getCartBySlug,
+  getUserCart,
   deleteProductFromCart
 } from './cartController'
 
@@ -40,7 +40,7 @@ export {
   getCategoryBySlug,
   editCategory,
   removeCategory,
-  getCartBySlug,
+  getUserCart,
   addProductToCart,
   deleteProductFromCart,
   deleteLoggedInUser

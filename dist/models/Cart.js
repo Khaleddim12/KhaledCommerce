@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CartSchema = exports.Cart = void 0;
 const mongoose_1 = require("mongoose");
 const slugify_1 = __importDefault(require("slugify"));
+const Product_1 = require("./Product");
 const CartSchema = new mongoose_1.Schema({
     name: {
         type: String,
@@ -23,18 +24,11 @@ const CartSchema = new mongoose_1.Schema({
         type: Number,
         default: 0,
     },
-    items: [{
-            product: mongoose_1.Schema.Types.ObjectId,
-            count: Number
-        }],
-    taxPrice: {
-        type: Number,
-        default: 0,
-    },
-    shippingPrice: {
-        type: Number,
-        default: 0,
-    },
+    items: [
+        {
+            type: Product_1.productSchema,
+        },
+    ],
     createdAt: {
         type: Date,
         immutable: true,

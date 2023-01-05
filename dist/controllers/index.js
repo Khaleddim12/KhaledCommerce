@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteLoggedInUser = exports.deleteProductFromCart = exports.addProductToCart = exports.getCartBySlug = exports.removeCategory = exports.editCategory = exports.getCategoryBySlug = exports.getCategories = exports.createCategory = exports.resetPassword = exports.register = exports.login = exports.forgotPassword = exports.editUser = exports.getProfile = exports.getBySlug = exports.deleteUserBySlug = exports.getUsers = void 0;
+exports.deleteLoggedInUser = exports.deleteProductFromCart = exports.addProductToCart = exports.getUserCart = exports.removeCategory = exports.editCategory = exports.getCategoryBySlug = exports.getCategories = exports.createCategory = exports.resetPassword = exports.register = exports.login = exports.forgotPassword = exports.editUser = exports.getProfile = exports.getBySlug = exports.deleteUserBySlug = exports.getUsers = void 0;
 const user_1 = require("./user");
 Object.defineProperty(exports, "getUsers", { enumerable: true, get: function () { return user_1.getUsers; } });
 Object.defineProperty(exports, "deleteUserBySlug", { enumerable: true, get: function () { return user_1.deleteUserBySlug; } });
@@ -20,5 +20,5 @@ Object.defineProperty(exports, "getCategoryBySlug", { enumerable: true, get: fun
 Object.defineProperty(exports, "removeCategory", { enumerable: true, get: function () { return categoryController_1.removeCategory; } });
 const cartController_1 = require("./cartController");
 Object.defineProperty(exports, "addProductToCart", { enumerable: true, get: function () { return cartController_1.addProductToCart; } });
-Object.defineProperty(exports, "getCartBySlug", { enumerable: true, get: function () { return cartController_1.getCartBySlug; } });
+Object.defineProperty(exports, "getUserCart", { enumerable: true, get: function () { return cartController_1.getUserCart; } });
 Object.defineProperty(exports, "deleteProductFromCart", { enumerable: true, get: function () { return cartController_1.deleteProductFromCart; } });

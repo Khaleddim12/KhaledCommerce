@@ -2,7 +2,7 @@ import { Router } from "express";
 
 //controller functions
 import {
-    getCartBySlug,
+    getUserCart,
     addProductToCart,
     deleteProductFromCart
 } from '../controllers'
@@ -12,7 +12,7 @@ const cartRouter = Router();
 
 cartRouter.route('/:productSlug').post(addProductToCart);
 
-cartRouter.route('/:slug').get(getCartBySlug)
+cartRouter.route('/').get(getUserCart)
 
 cartRouter.route('/:productSlug').delete(deleteProductFromCart)
 

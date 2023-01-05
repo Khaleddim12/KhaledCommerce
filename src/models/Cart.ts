@@ -3,6 +3,8 @@ import slugify from "slugify";
 
 import { ICart } from "../interfaces/cartInterface";
 import{User} from "./User"
+
+import {productSchema}from './Product'
 const CartSchema = new Schema<ICart>(
   {
     name:{
@@ -24,18 +26,11 @@ const CartSchema = new Schema<ICart>(
       default: 0,
       
     },
-    items:[{
-      product: Schema.Types.ObjectId,
-      count:Number
-  }],
-    taxPrice: {
-      type: Number,
-      default: 0,
-    },
-    shippingPrice: {
-      type: Number,
-      default: 0,
-    },
+    items: [
+      {
+        type:productSchema,
+      },
+    ],
     
     createdAt: {
       type: Date,

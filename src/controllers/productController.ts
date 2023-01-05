@@ -11,7 +11,7 @@ import { ErrorResponse, errorMessages, arrify } from "../utils";
 import { asyncHandler, filter } from "../middlewares";
 //SERVICES
 import { addProduct, removeProduct, getProduct } from "../services/";
-import { Category, Product, Review } from "../models";
+import { Cart, Category, Product, Review } from "../models";
 
 // @desc  Get all Products
 // @route GET /api/product/
@@ -57,6 +57,11 @@ export const deleteProduct = asyncHandler(
     //delete product reviews
     await Review.deleteMany({
       product:product._id
+    })
+
+    //delete products from carts
+    await Cart.updateMany({
+      $pull: { items: {_id:product._id} },
     })
     //delete product
     await removeProduct(product._id);
